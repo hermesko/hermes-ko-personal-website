@@ -13,7 +13,7 @@
       <property name = "password" value = "ZWMyMDE3ISE="/>
    </bean>
 
-   <!-- Definition for studentJDBCTemplate bean -->
+   <!-- Definition for educationJDBCTemplate bean -->
    <bean id = "EducationJDBCTemplate" 
       class = "com.hermesko.dao.EducationJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
