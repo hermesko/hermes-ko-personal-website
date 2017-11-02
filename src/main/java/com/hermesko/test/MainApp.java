@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hermesko.dao.EducationJDBCTemplate;
+import com.hermesko.jdbc.EducationJDBCTemplate;
 import com.hermesko.model.Education;
 
 public class MainApp {
