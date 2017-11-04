@@ -6,15 +6,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hermesko.jdbc.AwardsJDBCTemplate;
+import com.hermesko.jdbc.ContactInfoJDBCTemplate;
 import com.hermesko.jdbc.EducationJDBCTemplate;
 import com.hermesko.model.Awards;
+import com.hermesko.model.ContactInfo;
 import com.hermesko.model.Education;
 
 public class MainApp {
 	
 	public static void main(String[] args) {
-		MainApp.testEducationJBDC();
-		MainApp.testAwardsJDBC();
+		//MainApp.testEducationJBDC();
+		//MainApp.testAwardsJDBC();
+		MainApp.testContactInfoJDBC();
 	}
 
 	private static void testEducationJBDC() {
@@ -84,5 +87,48 @@ public class MainApp {
 		
 		System.out.println("------Deleting record with ID = " + valadectorian.getId() + "------");
 		awardsJDBCTemplate.deleteAward(valadectorian.getId());
+	}
+	
+	private static void testContactInfoJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		ContactInfoJDBCTemplate contactInfoJDBCTemplate = (ContactInfoJDBCTemplate) context.getBean("ContactInfoJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		contactInfoJDBCTemplate.createContactInfo("Carmelo Anthony",
+				"New York",
+				"NY",
+				"UNKNOWN",
+				"UNKNOWN",
+				"UNKNOWN",
+				"UNKNOWN");	
+		
+		System.out.println("------Listing Records------");
+		Stream<ContactInfo> contactInfo = contactInfoJDBCTemplate.listContactInfo();
+		
+		contactInfo.forEach(a -> System.out.println("NAME: " + a.getName() + 
+													" CITY: " + a.getCity() +
+													" STATE: " + a.getState() +
+													" PHONE: " + a.getPhone() +
+													" EMAIL: " + a.getEmail() +
+													" GITHUB: " + a.getGithub() +
+													" LINKEDIN: " + a.getLinkedin()));
+		
+		contactInfo = contactInfoJDBCTemplate.listContactInfo();
+		ContactInfo melo = contactInfo.filter(c -> c.getName().equals("Carmelo Anthony")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + melo.getId() + "------");
+		contactInfoJDBCTemplate.updateContactInfo(melo.getId(), 
+				melo.getName(), 
+				"Oklahoma City",
+				"OK", 
+				melo.getPhone(),
+				melo.getEmail(),
+				melo.getGithub(),
+				melo.getLinkedin());
+		
+		System.out.println("------Deleting record with ID = " + melo.getId() + "------");
+		contactInfoJDBCTemplate.deleteContactInfo(melo.getId());
 	}
 }
