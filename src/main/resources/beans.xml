@@ -25,6 +25,12 @@
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
       
+   <!-- Definition for CourseworkJDBCTemplate bean -->
+   <bean id = "CourseworkJDBCTemplate" 
+      class = "com.hermesko.jdbc.CourseworkJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
    <!-- Definition for EducationJDBCTemplate bean -->
    <bean id = "EducationJDBCTemplate" 
       class = "com.hermesko.jdbc.EducationJDBCTemplate">

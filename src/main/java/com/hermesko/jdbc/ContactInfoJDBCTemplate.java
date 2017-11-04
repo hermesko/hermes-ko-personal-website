@@ -16,13 +16,11 @@ public class ContactInfoJDBCTemplate implements ContactInfoDAO {
 	private DataSource ds;
 	private JdbcTemplate jdbcTemplateObject;
 	
-	@Override
 	public void setDataSource(final DataSource ds) {
 		this.ds = ds;
 		this.jdbcTemplateObject = new JdbcTemplate(ds);
 	}
 
-	@Override
 	public void createContactInfo(final String name, 
 			final String city, 
 			final String state, 
@@ -36,13 +34,11 @@ public class ContactInfoJDBCTemplate implements ContactInfoDAO {
 		System.out.println("INSERTED: " + name + ' ' + city + ' ' + state + ' ' + phone + ' ' + email + ' ' + github + ' ' + linkedin);
 	}
 
-	@Override
 	public ContactInfo getContactInfo(final int id) {
 		String sqlStatement = "SELECT * FROM FN_CONTACT_INFO WHERE ID = ?";
 		return jdbcTemplateObject.queryForObject(sqlStatement, new Object[] {id}, new ContactInfoMapper());
 	}
 
-	@Override
 	public void updateContactInfo(final int id, 
 			final String name, 
 			final String city, 
@@ -57,14 +53,12 @@ public class ContactInfoJDBCTemplate implements ContactInfoDAO {
 		System.out.println("UPDATED: " + id);
 	}
 
-	@Override
 	public void deleteContactInfo(final int id) {
 		String sqlStatement = "DELETE FROM FN_CONTACT_INFO WHERE ID = ?";
 		jdbcTemplateObject.update(sqlStatement, id);
 		System.out.println("DELETED: " + id);
 	}
 
-	@Override
 	public Stream<ContactInfo> listContactInfo() {
 		String sqlStatement = "SELECT * FROM FN_CONTACT_INFO";
 		return jdbcTemplateObject.query(sqlStatement,  new ContactInfoMapper()).stream();

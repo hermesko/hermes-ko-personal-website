@@ -7,17 +7,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hermesko.jdbc.AwardsJDBCTemplate;
 import com.hermesko.jdbc.ContactInfoJDBCTemplate;
+import com.hermesko.jdbc.CourseworkJDBCTemplate;
 import com.hermesko.jdbc.EducationJDBCTemplate;
 import com.hermesko.model.Awards;
 import com.hermesko.model.ContactInfo;
+import com.hermesko.model.Coursework;
 import com.hermesko.model.Education;
 
-public class MainApp {
+public class JDBCMainTests {
 	
 	public static void main(String[] args) {
-		//MainApp.testEducationJBDC();
-		//MainApp.testAwardsJDBC();
-		MainApp.testContactInfoJDBC();
+		JDBCMainTests.testEducationJBDC();
+		JDBCMainTests.testAwardsJDBC();
+		JDBCMainTests.testContactInfoJDBC();
+		JDBCMainTests.testCourseworkJDBC();
 	}
 
 	private static void testEducationJBDC() {
@@ -107,13 +110,13 @@ public class MainApp {
 		System.out.println("------Listing Records------");
 		Stream<ContactInfo> contactInfo = contactInfoJDBCTemplate.listContactInfo();
 		
-		contactInfo.forEach(a -> System.out.println("NAME: " + a.getName() + 
-													" CITY: " + a.getCity() +
-													" STATE: " + a.getState() +
-													" PHONE: " + a.getPhone() +
-													" EMAIL: " + a.getEmail() +
-													" GITHUB: " + a.getGithub() +
-													" LINKEDIN: " + a.getLinkedin()));
+		contactInfo.forEach(c -> System.out.println("NAME: " + c.getName() + 
+													" CITY: " + c.getCity() +
+													" STATE: " + c.getState() +
+													" PHONE: " + c.getPhone() +
+													" EMAIL: " + c.getEmail() +
+													" GITHUB: " + c.getGithub() +
+													" LINKEDIN: " + c.getLinkedin()));
 		
 		contactInfo = contactInfoJDBCTemplate.listContactInfo();
 		ContactInfo melo = contactInfo.filter(c -> c.getName().equals("Carmelo Anthony")).findFirst().get();
@@ -130,5 +133,32 @@ public class MainApp {
 		
 		System.out.println("------Deleting record with ID = " + melo.getId() + "------");
 		contactInfoJDBCTemplate.deleteContactInfo(melo.getId());
+	}
+	
+	private static void testCourseworkJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		CourseworkJDBCTemplate courseworkJDBCTemplate = (CourseworkJDBCTemplate) context.getBean("CourseworkJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		courseworkJDBCTemplate.createCoursework(1, "Computer Architecture");	
+		
+		System.out.println("------Listing Records------");
+		Stream<Coursework> coursework = courseworkJDBCTemplate.listCoursework();
+		
+		coursework.forEach(c -> System.out.println("SCHOOL_ID: " + c.getSchoolId() + 
+													" COURSE: " + c.getCourse()));
+		
+		coursework = courseworkJDBCTemplate.listCoursework();
+		Coursework cse490 = coursework.filter(c -> c.getCourse().equals("Computer Architecture")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + cse490.getId() + "------");
+		courseworkJDBCTemplate.updateCoursework(cse490.getId(), 
+				cse490.getSchoolId(),
+				"Theory of Computation");
+		
+		System.out.println("------Deleting record with ID = " + cse490.getId() + "------");
+		courseworkJDBCTemplate.deleteCoursework(cse490.getId());
 	}
 }
