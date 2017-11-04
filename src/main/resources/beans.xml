@@ -13,10 +13,18 @@
       <property name = "password" value = "ZWMyMDE3ISE="/>
    </bean>
 
-   <!-- Definition for educationJDBCTemplate bean -->
-   <bean id = "EducationJDBCTemplate" 
-      class = "com.hermesko.dao.EducationJDBCTemplate">
+   <!-- Definition for awardsJDBCTemplate bean -->
+   <bean id = "AwardsJDBCTemplate" 
+      class = "com.hermesko.jdbc.AwardsJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
+   
+   <!-- Definition for educationJDBCTemplate bean -->
+   <bean id = "EducationJDBCTemplate" 
+      class = "com.hermesko.jdbc.EducationJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   
       
 </beans>

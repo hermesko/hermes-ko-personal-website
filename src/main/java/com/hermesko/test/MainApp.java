@@ -5,13 +5,19 @@ import java.util.stream.Stream;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.hermesko.jdbc.AwardsJDBCTemplate;
 import com.hermesko.jdbc.EducationJDBCTemplate;
+import com.hermesko.model.Awards;
 import com.hermesko.model.Education;
 
 public class MainApp {
-
+	
 	public static void main(String[] args) {
+		MainApp.testEducationJBDC();
+		MainApp.testAwardsJDBC();
+	}
 
+	private static void testEducationJBDC() {
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		
@@ -50,5 +56,33 @@ public class MainApp {
 		System.out.println("------Deleting record with ID = " + bths.getSchoolId() + "------");
 		educationJDBCTemplate.deleteEducation(bths.getSchoolId());
 	}
-
+	
+	private static void testAwardsJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		AwardsJDBCTemplate awardsJDBCTemplate = (AwardsJDBCTemplate) context.getBean("AwardsJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		awardsJDBCTemplate.createAward(1, "Valedectorian", "May 2017");
+		
+		System.out.println("------Listing Records------");
+		Stream<Awards> award = awardsJDBCTemplate.listAwards();
+		
+		award.forEach(a -> System.out.println("SCHOOL_ID: " + a.getSchoolId() + 
+													" NAME: " + a.getName() +
+													" DATE: " + a.getDate()));
+		
+		award = awardsJDBCTemplate.listAwards();
+		Awards valadectorian = award.filter(a -> a.getName().equals("Valedectorian")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + valadectorian.getId() + "------");
+		awardsJDBCTemplate.updateAward(valadectorian.getId(), 
+				valadectorian.getSchoolId(), 
+				"Summa Cum Laude",
+				valadectorian.getDate());
+		
+		System.out.println("------Deleting record with ID = " + valadectorian.getId() + "------");
+		awardsJDBCTemplate.deleteAward(valadectorian.getId());
+	}
 }
