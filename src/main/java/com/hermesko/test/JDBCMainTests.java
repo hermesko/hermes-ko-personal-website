@@ -9,18 +9,21 @@ import com.hermesko.jdbc.AwardsJDBCTemplate;
 import com.hermesko.jdbc.ContactInfoJDBCTemplate;
 import com.hermesko.jdbc.CourseworkJDBCTemplate;
 import com.hermesko.jdbc.EducationJDBCTemplate;
+import com.hermesko.jdbc.ExtracurricularsJDBCTemplate;
 import com.hermesko.model.Awards;
 import com.hermesko.model.ContactInfo;
 import com.hermesko.model.Coursework;
 import com.hermesko.model.Education;
+import com.hermesko.model.Extracurriculars;
 
 public class JDBCMainTests {
 	
 	public static void main(String[] args) {
-		JDBCMainTests.testEducationJBDC();
 		JDBCMainTests.testAwardsJDBC();
 		JDBCMainTests.testContactInfoJDBC();
 		JDBCMainTests.testCourseworkJDBC();
+		JDBCMainTests.testEducationJBDC();
+		JDBCMainTests.testExtracurricularsJDBC();
 	}
 
 	private static void testEducationJBDC() {
@@ -75,7 +78,8 @@ public class JDBCMainTests {
 		System.out.println("------Listing Records------");
 		Stream<Awards> award = awardsJDBCTemplate.listAwards();
 		
-		award.forEach(a -> System.out.println("SCHOOL_ID: " + a.getSchoolId() + 
+		award.forEach(a -> System.out.println("ID: " + a.getId() +
+													" SCHOOL_ID: " + a.getSchoolId() + 
 													" NAME: " + a.getName() +
 													" DATE: " + a.getDate()));
 		
@@ -110,7 +114,8 @@ public class JDBCMainTests {
 		System.out.println("------Listing Records------");
 		Stream<ContactInfo> contactInfo = contactInfoJDBCTemplate.listContactInfo();
 		
-		contactInfo.forEach(c -> System.out.println("NAME: " + c.getName() + 
+		contactInfo.forEach(c -> System.out.println("ID: " + c.getId() +
+													" NAME: " + c.getName() + 
 													" CITY: " + c.getCity() +
 													" STATE: " + c.getState() +
 													" PHONE: " + c.getPhone() +
@@ -147,7 +152,8 @@ public class JDBCMainTests {
 		System.out.println("------Listing Records------");
 		Stream<Coursework> coursework = courseworkJDBCTemplate.listCoursework();
 		
-		coursework.forEach(c -> System.out.println("SCHOOL_ID: " + c.getSchoolId() + 
+		coursework.forEach(c -> System.out.println("ID: " + c.getId() +
+													" SCHOOL_ID: " + c.getSchoolId() + 
 													" COURSE: " + c.getCourse()));
 		
 		coursework = courseworkJDBCTemplate.listCoursework();
@@ -160,5 +166,35 @@ public class JDBCMainTests {
 		
 		System.out.println("------Deleting record with ID = " + cse490.getId() + "------");
 		courseworkJDBCTemplate.deleteCoursework(cse490.getId());
+	}
+	
+	private static void testExtracurricularsJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		ExtracurricularsJDBCTemplate extracurricularsJDBCTemplate = (ExtracurricularsJDBCTemplate) context.getBean("ExtracurricularsJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		extracurricularsJDBCTemplate.createExtracurriculars("Flex Force Bagel Day", "October 2017", "Present");
+		
+		System.out.println("------Listing Records------");
+		Stream<Extracurriculars> extracurriculars = extracurricularsJDBCTemplate.listExtracurriculars();
+		
+		extracurriculars.forEach(e -> System.out.println("ID: " + e.getId() +
+													" TITLE: " + e.getTitle() + 
+													" START_DATE: " + e.getStartDate() +
+													" END_DATE: " + e.getEndDate()));
+		
+		extracurriculars = extracurricularsJDBCTemplate.listExtracurriculars();
+		Extracurriculars ffbd = extracurriculars.filter(e -> e.getTitle().equals("Flex Force Bagel Day")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + ffbd.getId() + "------");
+		extracurricularsJDBCTemplate.updateExtracurriculars(ffbd.getId(), 
+				"Flex Force Bagel Day", 
+				"September 2017", 
+				ffbd.getEndDate());
+		
+		System.out.println("------Deleting record with ID = " + ffbd.getTitle() + "------");
+		extracurricularsJDBCTemplate.deleteExtracurriculars(ffbd.getId());
 	}
 }

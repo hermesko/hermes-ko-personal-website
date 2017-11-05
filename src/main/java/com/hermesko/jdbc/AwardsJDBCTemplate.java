@@ -52,7 +52,6 @@ public class AwardsJDBCTemplate implements AwardsDAO {
 		System.out.println("DELETED: " + id);
 	}
 
-	@Override
 	public Stream<Awards> listAwards() {
 		String sqlStatement = "SELECT * FROM FN_AWARDS";
 		return jdbcTemplateObject.query(sqlStatement, new AwardsMapper()).stream();

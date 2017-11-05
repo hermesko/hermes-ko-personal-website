@@ -37,6 +37,10 @@
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
    
-   
+   <!-- Definition for ExtracurricularsJDBCTemplate bean -->
+   <bean id = "ExtracurricularsJDBCTemplate" 
+      class = "com.hermesko.jdbc.ExtracurricularsJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
       
 </beans>
