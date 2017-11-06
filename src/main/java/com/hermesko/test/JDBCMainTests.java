@@ -10,11 +10,13 @@ import com.hermesko.jdbc.ContactInfoJDBCTemplate;
 import com.hermesko.jdbc.CourseworkJDBCTemplate;
 import com.hermesko.jdbc.EducationJDBCTemplate;
 import com.hermesko.jdbc.ExtracurricularsJDBCTemplate;
+import com.hermesko.jdbc.ProgrammingLanguagesJDBCTemplate;
 import com.hermesko.model.Awards;
 import com.hermesko.model.ContactInfo;
 import com.hermesko.model.Coursework;
 import com.hermesko.model.Education;
 import com.hermesko.model.Extracurriculars;
+import com.hermesko.model.ProgrammingLanguages;
 
 public class JDBCMainTests {
 	
@@ -24,6 +26,7 @@ public class JDBCMainTests {
 		JDBCMainTests.testCourseworkJDBC();
 		JDBCMainTests.testEducationJBDC();
 		JDBCMainTests.testExtracurricularsJDBC();
+		JDBCMainTests.testProgrammingLanguagesJDBC();
 	}
 
 	private static void testEducationJBDC() {
@@ -194,7 +197,33 @@ public class JDBCMainTests {
 				"September 2017", 
 				ffbd.getEndDate());
 		
-		System.out.println("------Deleting record with ID = " + ffbd.getTitle() + "------");
+		System.out.println("------Deleting record with ID = " + ffbd.getId() + "------");
 		extracurricularsJDBCTemplate.deleteExtracurriculars(ffbd.getId());
+	}
+	
+	private static void testProgrammingLanguagesJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		ProgrammingLanguagesJDBCTemplate programmingLanguagesJDBCTemplate = (ProgrammingLanguagesJDBCTemplate) context.getBean("ProgrammingLanguagesJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		programmingLanguagesJDBCTemplate.createProgrammingLanguages("Groovy");
+		
+		System.out.println("------Listing Records------");
+		Stream<ProgrammingLanguages> programmingLanguages = programmingLanguagesJDBCTemplate.listProgrammingLanguages();
+		
+		programmingLanguages.forEach(p -> System.out.println("ID: " + p.getId() +
+													" PROGRAMMING_LANGUAGE: " + p.getProgrammingLanguage()));
+		
+		programmingLanguages = programmingLanguagesJDBCTemplate.listProgrammingLanguages();
+		ProgrammingLanguages programmingLanguage = programmingLanguages.filter(p -> p.getProgrammingLanguage().equals("Groovy")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + programmingLanguage.getId() + "------");
+		programmingLanguagesJDBCTemplate.updateProgrammingLanguages(programmingLanguage.getId(), 
+				"Haskell");
+		
+		System.out.println("------Deleting record with ID = " + programmingLanguage.getId() + "------");
+		programmingLanguagesJDBCTemplate.deleteProgrammingLanguages(programmingLanguage.getId());
 	}
 }

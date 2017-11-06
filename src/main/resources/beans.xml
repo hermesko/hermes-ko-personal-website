@@ -49,33 +49,34 @@
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
 
-   <!-- Definition for ProjectDetailsJDBCTemplate bean -->
+   <!-- Definition for ProjectDetailsJDBCTemplate bean 
    <bean id = "ProjectDetailsJDBCTemplate" 
       class = "com.hermesko.jdbc.ProjectDetailsJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
-   
-   <!-- Definition for ProjectsJDBCTemplate bean -->
+   -->
+   <!-- Definition for ProjectsJDBCTemplate bean 
    <bean id = "ProjectsJDBCTemplate" 
       class = "com.hermesko.jdbc.ProjectsJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
-   
-   <!-- Definition for TechnologiesJDBCTemplate bean -->
+   -->
+   <!-- Definition for TechnologiesJDBCTemplate bean
    <bean id = "TechnologiesJDBCTemplate" 
       class = "com.hermesko.jdbc.TechnologiesJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
-
-   <!-- Definition for WorkExperienceJDBCTemplate bean -->
+   -->
+   <!-- Definition for WorkExperienceJDBCTemplate bean
    <bean id = "WorkExperienceJDBCTemplate" 
       class = "com.hermesko.jdbc.WorkExperienceJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
-   
-      <!-- Definition for WorkResponsibilitiesJDBCTemplate bean -->
+    -->
+   <!-- Definition for WorkResponsibilitiesJDBCTemplate bean
    <bean id = "WorkResponsibilitiesJDBCTemplate" 
       class = "com.hermesko.jdbc.WorkResponsibilitiesJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
+    -->
 </beans>

@@ -16,7 +16,7 @@ public class CourseworkJDBCTemplate implements CourseworkDAO{
 	private DataSource ds;
 	private JdbcTemplate jdbcTemplateObject;
 	
-	public void setDataSource(DataSource ds) {
+	public void setDataSource(final DataSource ds) {
 		this.ds = ds;
 		this.jdbcTemplateObject = new JdbcTemplate(ds);
 	}
