@@ -11,22 +11,25 @@ import com.hermesko.jdbc.CourseworkJDBCTemplate;
 import com.hermesko.jdbc.EducationJDBCTemplate;
 import com.hermesko.jdbc.ExtracurricularsJDBCTemplate;
 import com.hermesko.jdbc.ProgrammingLanguagesJDBCTemplate;
+import com.hermesko.jdbc.ProjectDetailsJDBCTemplate;
 import com.hermesko.model.Awards;
 import com.hermesko.model.ContactInfo;
 import com.hermesko.model.Coursework;
 import com.hermesko.model.Education;
 import com.hermesko.model.Extracurriculars;
 import com.hermesko.model.ProgrammingLanguages;
+import com.hermesko.model.ProjectDetails;
 
 public class JDBCMainTests {
 	
 	public static void main(String[] args) {
-		JDBCMainTests.testAwardsJDBC();
-		JDBCMainTests.testContactInfoJDBC();
-		JDBCMainTests.testCourseworkJDBC();
-		JDBCMainTests.testEducationJBDC();
-		JDBCMainTests.testExtracurricularsJDBC();
-		JDBCMainTests.testProgrammingLanguagesJDBC();
+		//JDBCMainTests.testAwardsJDBC();
+		//JDBCMainTests.testContactInfoJDBC();
+		//JDBCMainTests.testCourseworkJDBC();
+		//JDBCMainTests.testEducationJBDC();
+		//JDBCMainTests.testExtracurricularsJDBC();
+		//JDBCMainTests.testProgrammingLanguagesJDBC();
+		JDBCMainTests.testProjectDetailsJDBC();
 	}
 
 	private static void testEducationJBDC() {
@@ -225,5 +228,32 @@ public class JDBCMainTests {
 		
 		System.out.println("------Deleting record with ID = " + programmingLanguage.getId() + "------");
 		programmingLanguagesJDBCTemplate.deleteProgrammingLanguages(programmingLanguage.getId());
+	}
+	
+	private static void testProjectDetailsJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		ProjectDetailsJDBCTemplate projectDetailsJDBCTemplate = (ProjectDetailsJDBCTemplate) context.getBean("ProjectDetailsJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		projectDetailsJDBCTemplate.createProjectDetails(1, "Implemented DAO Objects, Mappers, and Models for JDBC Access.");
+		
+		System.out.println("------Listing Records------");
+		Stream<ProjectDetails> projectDetails = projectDetailsJDBCTemplate.listProjectDetails();
+		
+		projectDetails.forEach(p -> System.out.println("ID: " + p.getId() +
+													" PROJECT_ID: " + p.getProjectId() + 
+													" DETAIL: " + p.getDetail()));
+		
+		projectDetails = projectDetailsJDBCTemplate.listProjectDetails();
+		ProjectDetails projectDetail = projectDetails.filter(p -> p.getDetail().equals("Implemented DAO Objects, Mappers, and Models for JDBC Access.")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + projectDetail.getId() + "------");
+		projectDetailsJDBCTemplate.updateProjectDetails(projectDetail.getId(), 
+				projectDetail.getProjectId(), "Used AngularJS to create a front-end web application.");
+		
+		System.out.println("------Deleting record with ID = " + projectDetail.getId() + "------");
+		projectDetailsJDBCTemplate.deleteProjectDetails(projectDetail.getId());
 	}
 }
