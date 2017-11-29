@@ -49,7 +49,7 @@ public interface CourseworkDAO {
 	 * 
 	 * @param id
 	 */
-	public void deleteCouresework(final int id);
+	public void deleteCoursework(final int id);
 	
 	/**
 	 * Method used to list all of the records in the fn_coursework table.

@@ -13,10 +13,69 @@
       <property name = "password" value = "ZWMyMDE3ISE="/>
    </bean>
 
-   <!-- Definition for educationJDBCTemplate bean -->
-   <bean id = "EducationJDBCTemplate" 
-      class = "com.hermesko.dao.EducationJDBCTemplate">
+   <!-- Definition for AwardsJDBCTemplate bean -->
+   <bean id = "AwardsJDBCTemplate" 
+      class = "com.hermesko.jdbc.AwardsJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+
+   <!-- Definition for ContactInfoJDBCTemplate bean -->
+   <bean id = "ContactInfoJDBCTemplate" 
+      class = "com.hermesko.jdbc.ContactInfoJDBCTemplate">
       <property name = "dataSource" ref = "dataSource" />    
    </bean>
       
+   <!-- Definition for CourseworkJDBCTemplate bean -->
+   <bean id = "CourseworkJDBCTemplate" 
+      class = "com.hermesko.jdbc.CourseworkJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   <!-- Definition for EducationJDBCTemplate bean -->
+   <bean id = "EducationJDBCTemplate" 
+      class = "com.hermesko.jdbc.EducationJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   <!-- Definition for ExtracurricularsJDBCTemplate bean -->
+   <bean id = "ExtracurricularsJDBCTemplate" 
+      class = "com.hermesko.jdbc.ExtracurricularsJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   <!-- Definition for ProgrammingLanguagesJDBCTemplate bean -->
+   <bean id = "ProgrammingLanguagesJDBCTemplate" 
+      class = "com.hermesko.jdbc.ProgrammingLanguagesJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+
+   <!-- Definition for ProjectDetailsJDBCTemplate bean -->
+   <bean id = "ProjectDetailsJDBCTemplate" 
+      class = "com.hermesko.jdbc.ProjectDetailsJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+
+   <!-- Definition for ProjectsJDBCTemplate bean -->
+   <bean id = "ProjectsJDBCTemplate" 
+      class = "com.hermesko.jdbc.ProjectsJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   <!-- Definition for TechnologiesJDBCTemplate bean -->
+   <bean id = "TechnologiesJDBCTemplate" 
+      class = "com.hermesko.jdbc.TechnologiesJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   <!-- Definition for WorkExperienceJDBCTemplate bean -->
+   <bean id = "WorkExperienceJDBCTemplate" 
+      class = "com.hermesko.jdbc.WorkExperienceJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
+   
+   <!-- Definition for WorkResponsibilitiesJDBCTemplate bean -->
+   <bean id = "WorkResponsibilitiesJDBCTemplate" 
+      class = "com.hermesko.jdbc.WorkResponsibilitiesJDBCTemplate">
+      <property name = "dataSource" ref = "dataSource" />    
+   </bean>
 </beans>

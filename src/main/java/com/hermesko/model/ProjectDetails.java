@@ -17,7 +17,7 @@ public class ProjectDetails {
 		return this.id;
 	}
 	
-	public int projectId() {
+	public int getProjectId() {
 		return this.projectId;
 	}
 	

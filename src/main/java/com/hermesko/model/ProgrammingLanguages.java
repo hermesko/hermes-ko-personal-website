@@ -15,7 +15,7 @@ public class ProgrammingLanguages {
 		return this.id;
 	}
 	
-	public String getProgrammingLanauage() {
+	public String getProgrammingLanguage() {
 		return this.programmingLanguage;
 	}
 }
