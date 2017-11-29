@@ -51,7 +51,7 @@ public class WorkExperienceJDBCTemplate implements WorkExperienceDAO {
 	}
 
 	public void deleteWorkExperience(final int id) {
-		String sqlStatement = "DELETE FROM FN_WORK_EXPERIENCE WHERE ID = ?";
+		String sqlStatement = "DELETE FROM FN_WORK_EXPERIENCE WHERE JOB_ID = ?";
 		jdbcTemplateObject.update(sqlStatement, id);
 		System.out.println("DELETED: " + id);
 	}

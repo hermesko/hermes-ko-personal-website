@@ -43,7 +43,7 @@ public class ProjectsJDBCTemplate implements ProjectsDAO {
 	}
 
 	public void deleteProjects(final int id) {
-		String sqlStatement = "DELETE FROM FN_PROJECTS WHERE ID = ?";
+		String sqlStatement = "DELETE FROM FN_PROJECTS WHERE PROJECT_ID = ?";
 		jdbcTemplateObject.update(sqlStatement, id);
 		System.out.println("DELETED: " + id);
 	}

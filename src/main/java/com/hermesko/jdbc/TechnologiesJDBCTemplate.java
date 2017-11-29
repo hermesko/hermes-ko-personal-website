@@ -39,7 +39,7 @@ public class TechnologiesJDBCTemplate implements TechnologiesDAO {
 	}
 
 	public void deleteTechnologies(final int id) {
-		String sqlStatement = "DELETE FROM FN_TECHNOLIGIES WHERE ID = ?";
+		String sqlStatement = "DELETE FROM FN_TECHNOLOGIES WHERE ID = ?";
 		jdbcTemplateObject.update(sqlStatement, id);
 		System.out.println("DELETED: " + id);	
 	}

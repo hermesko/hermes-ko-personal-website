@@ -12,6 +12,10 @@ import com.hermesko.jdbc.EducationJDBCTemplate;
 import com.hermesko.jdbc.ExtracurricularsJDBCTemplate;
 import com.hermesko.jdbc.ProgrammingLanguagesJDBCTemplate;
 import com.hermesko.jdbc.ProjectDetailsJDBCTemplate;
+import com.hermesko.jdbc.ProjectsJDBCTemplate;
+import com.hermesko.jdbc.TechnologiesJDBCTemplate;
+import com.hermesko.jdbc.WorkExperienceJDBCTemplate;
+import com.hermesko.jdbc.WorkResponsibilitiesJDBCTemplate;
 import com.hermesko.model.Awards;
 import com.hermesko.model.ContactInfo;
 import com.hermesko.model.Coursework;
@@ -19,17 +23,27 @@ import com.hermesko.model.Education;
 import com.hermesko.model.Extracurriculars;
 import com.hermesko.model.ProgrammingLanguages;
 import com.hermesko.model.ProjectDetails;
+import com.hermesko.model.Projects;
+import com.hermesko.model.Technologies;
+import com.hermesko.model.WorkExperience;
+import com.hermesko.model.WorkResponsibilities;
 
 public class JDBCMainTests {
 	
 	public static void main(String[] args) {
-		//JDBCMainTests.testAwardsJDBC();
-		//JDBCMainTests.testContactInfoJDBC();
-		//JDBCMainTests.testCourseworkJDBC();
-		//JDBCMainTests.testEducationJBDC();
-		//JDBCMainTests.testExtracurricularsJDBC();
-		//JDBCMainTests.testProgrammingLanguagesJDBC();
+		/*
+		JDBCMainTests.testAwardsJDBC();
+		JDBCMainTests.testContactInfoJDBC();
+		JDBCMainTests.testCourseworkJDBC();
+		JDBCMainTests.testEducationJBDC();
+		JDBCMainTests.testExtracurricularsJDBC();
+		JDBCMainTests.testProgrammingLanguagesJDBC();
 		JDBCMainTests.testProjectDetailsJDBC();
+		JDBCMainTests.testProjectsJDBC();
+		JDBCMainTests.testTechnologiesJDBC();
+		JDBCMainTests.testWorkExperienceJDBC();
+		*/
+		JDBCMainTests.testWorkResponsibilitiesJDBC();
 	}
 
 	private static void testEducationJBDC() {
@@ -255,5 +269,123 @@ public class JDBCMainTests {
 		
 		System.out.println("------Deleting record with ID = " + projectDetail.getId() + "------");
 		projectDetailsJDBCTemplate.deleteProjectDetails(projectDetail.getId());
+	}
+
+	private static void testProjectsJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		ProjectsJDBCTemplate projectsJDBCTemplate = (ProjectsJDBCTemplate) context.getBean("ProjectsJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		projectsJDBCTemplate.createProjects("Angular 2 Web Application", "Personal", "October 2017", "Present");
+		
+		System.out.println("------Listing Records------");
+		Stream<Projects> projects = projectsJDBCTemplate.listProjects();
+		
+		projects.forEach(p -> System.out.println("NAME: " + p.getName() + 
+													" PURPOSE: " + p.getPurpose() + 
+													" START_DATE: " + p.getStartDate() +
+													" END_DATE: " + p.getEndDate()));
+		
+		projects = projectsJDBCTemplate.listProjects();
+		Projects angularWebApp = projects.filter(p -> p.getName().equals("Angular 2 Web Application")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + angularWebApp.getProjectId() + "------");
+		projectsJDBCTemplate.updateProjects(angularWebApp.getProjectId(), 
+				"Angular 4 Web Application", 
+				angularWebApp.getPurpose(), 
+				angularWebApp.getStartDate(), 
+				angularWebApp.getEndDate());
+		
+		System.out.println("------Deleting record with ID = " + angularWebApp.getProjectId() + "------");
+		projectsJDBCTemplate.deleteProjects(angularWebApp.getProjectId());
+	}
+	
+	private static void testTechnologiesJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		TechnologiesJDBCTemplate technologiesJDBCTemplate = (TechnologiesJDBCTemplate) context.getBean("TechnologiesJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		technologiesJDBCTemplate.createTechnologies("Angular 4");
+		
+		System.out.println("------Listing Records------");
+		Stream<Technologies> technologies = technologiesJDBCTemplate.listTechnologies();
+		
+		technologies.forEach(t -> System.out.println("TECHNOLOGY: " + t.getTechnology()));
+		
+		technologies = technologiesJDBCTemplate.listTechnologies();
+		Technologies angular4 = technologies.filter(t -> t.getTechnology().equals("Angular 4")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + angular4.getId() + "------");
+		technologiesJDBCTemplate.updateTechnologies(angular4.getId(), "Groovy");
+		
+		System.out.println("------Deleting record with ID = " + angular4.getId() + "------");
+		technologiesJDBCTemplate.deleteTechnologies(angular4.getId());
+	}
+	
+	private static void testWorkExperienceJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		WorkExperienceJDBCTemplate workExperienceJDBCTemplate = (WorkExperienceJDBCTemplate) context.getBean("WorkExperienceJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		workExperienceJDBCTemplate.createWorkExperience("Google", "Mountain View", "CA", "Lead Software Engineer", "June 2020", "Present");
+		
+		System.out.println("------Listing Records------");
+		Stream<WorkExperience> workExperience = workExperienceJDBCTemplate.listWorkExperience();
+		
+		workExperience.forEach(wE -> System.out.println("COMPANY: " + wE.getCompany() + 
+				" CITY: " + wE.getCity() +
+				" STATE: " + wE.getState() + 
+				" TITLE: " + wE.getTitle() + 
+				" START_DATE: " + wE.getStartDate() + 
+				" END_DATE: " + wE.getEndDate()));
+		
+		workExperience = workExperienceJDBCTemplate.listWorkExperience();
+		WorkExperience capitalOne = workExperience.filter(wE -> wE.getStartDate().equals("June 2020")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + capitalOne.getJobId() + "------");
+		workExperienceJDBCTemplate.updateWorkExperience(capitalOne.getJobId(), 
+				"Capital One", 
+				"New York", 
+				"NY", 
+				"Master Software Engineer", 
+				capitalOne.getStartDate(), 
+				capitalOne.getEndDate());
+		
+		System.out.println("------Deleting record with ID = " + capitalOne.getJobId() + "------");
+		workExperienceJDBCTemplate.deleteWorkExperience(capitalOne.getJobId());
+	}
+	
+	private static void testWorkResponsibilitiesJDBC() {
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		
+		WorkResponsibilitiesJDBCTemplate workResponsibilitiesJDBCTemplate = (WorkResponsibilitiesJDBCTemplate) context.getBean("WorkResponsibilitiesJDBCTemplate");
+		
+		System.out.println("------Records Creation------");
+		workResponsibilitiesJDBCTemplate.createWorkResponsibilities(1, "Mentor new hires");
+		
+		System.out.println("------Listing Records------");
+		Stream<WorkResponsibilities> workResponsibilities = workResponsibilitiesJDBCTemplate.listWorkResponsibilities();
+		
+		workResponsibilities.forEach(wR -> System.out.println("ID: " + wR.getId() + 
+				" JOB_ID: " + wR.getJobId() +
+				" RESPONSIBILITY: " + wR.getResponsibility()));
+		
+		workResponsibilities = workResponsibilitiesJDBCTemplate.listWorkResponsibilities();
+		WorkResponsibilities labs = workResponsibilities.filter(wR -> wR.getResponsibility().equals("Mentor new hires")).findFirst().get();
+		
+		System.out.println("------Updating record with ID = " + labs.getId() + "------");
+		workResponsibilitiesJDBCTemplate.updateWorkResponsibilities(labs.getId(), 
+				labs.getJobId(), 
+				"Support AT&T Labs organization");
+		
+		System.out.println("------Deleting record with ID = " + labs.getId() + "------");
+		workResponsibilitiesJDBCTemplate.deleteWorkResponsibilities(labs.getId());
 	}
 }

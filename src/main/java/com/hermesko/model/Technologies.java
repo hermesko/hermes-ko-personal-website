@@ -15,7 +15,7 @@ public class Technologies {
 		return this.id;
 	}
 	
-	public String technology() {
+	public String getTechnology() {
 		return this.technology;
 	}
 }
