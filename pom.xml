@@ -7,36 +7,66 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>hermes-ko-personal-website Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <parent>
+  	<groupId>org.springframework.boot</groupId>
+  	<artifactId>spring-boot-starter-parent</artifactId>
+  	<version>1.5.9.RELEASE</version>
+  </parent>
   <dependencies>
     <dependency>
     	<groupId>junit</groupId>
     	<artifactId>junit</artifactId>
-    	<version>3.8.1</version>
     	<scope>test</scope>
     </dependency>
     <dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>javax.servlet-api</artifactId>
-    	<version>3.1.0</version>
     	<scope>provided</scope>
 	</dependency>
-	<dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>5.0.0.RELEASE</version>
-    </dependency>
     <dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-jdbc</artifactId>
-	    <version>5.0.0.RELEASE</version>
 	</dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
     <dependency>
     	<groupId>postgresql</groupId>
     	<artifactId>postgresql</artifactId>
     	<version>9.1-901.jdbc4</version>
 	</dependency>
   </dependencies>
+   <properties>
+       <java.version>1.8</java.version>
+   </properties>
   <build>
+	<plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     <finalName>hermes-ko-personal-website</finalName>
   </build>
 </project>
