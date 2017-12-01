@@ -30,8 +30,8 @@ import com.hermesko.model.WorkResponsibilities;
 
 public class JDBCMainTests {
 	
+	/*
 	public static void main(String[] args) {
-		/*
 		JDBCMainTests.testAwardsJDBC();
 		JDBCMainTests.testContactInfoJDBC();
 		JDBCMainTests.testCourseworkJDBC();
@@ -42,9 +42,9 @@ public class JDBCMainTests {
 		JDBCMainTests.testProjectsJDBC();
 		JDBCMainTests.testTechnologiesJDBC();
 		JDBCMainTests.testWorkExperienceJDBC();
-		*/
 		JDBCMainTests.testWorkResponsibilitiesJDBC();
 	}
+	*/
 
 	private static void testEducationJBDC() {
 		@SuppressWarnings("resource")
