@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.hko</groupId>
-  <artifactId>hermes-ko-personal-website</artifactId>
+  <artifactId>hermes-ko-rest-api</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>hermes-ko-personal-website Maven Webapp</name>
+  <name>hermes-ko-rest-api Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <parent>
   	<groupId>org.springframework.boot</groupId>
@@ -67,6 +67,6 @@
                 </executions>
             </plugin>
         </plugins>
-    <finalName>hermes-ko-personal-website</finalName>
+    <finalName>hermes-ko-rest-api</finalName>
   </build>
 </project>
